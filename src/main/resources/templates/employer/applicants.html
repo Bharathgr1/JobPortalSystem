@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Applicants</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background: white;
+        margin-top: 40px;
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        width: 650px;
+    }
+    h2 {
+        color: #2c3e50;
+        text-align: center;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+    li {
+        background: #f8f9fa;
+        margin-bottom: 10px;
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: 0.3s;
+    }
+    .approve {
+        background-color: #2ecc71;
+        color: white;
+    }
+    .approve:hover {
+        background-color: #27ae60;
+    }
+    .reject {
+        background-color: #e74c3c;
+        color: white;
+    }
+    .reject:hover {
+        background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 th:text="'Applicants for ' + ${job.title}"></h2>
+  <p><b>Total Applicants:</b> <span th:text="${count}"></span></p>
+
+  <ul>
+    <li th:each="app : ${applications}">
+      <span>
+        <b th:text="${app.applicant.username}"></b> -
+        <span th:text="${app.status}"></span>
+      </span>
+
+      <!-- Approve / Reject Buttons -->
+      <span>
+        <form th:action="@{/employer/application/{id}/approve(id=${app.id})}" method="post" style="display:inline">
+          <button type="submit" class="btn approve">Approve</button>
+        </form>
+        <form th:action="@{/employer/application/{id}/reject(id=${app.id})}" method="post" style="display:inline">
+          <button type="submit" class="btn reject">Reject</button>
+        </form>
+      </span>
+    </li>
+  </ul>
+
+  <a href="/employer/jobs">⬅ Back to My Jobs</a>
+</div>
+</body>
+</html>

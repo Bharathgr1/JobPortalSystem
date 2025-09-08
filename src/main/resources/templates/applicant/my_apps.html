@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Applications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px 40px;
+            margin-top: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            width: 650px;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .status {
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .status.applied, .status.pending {
+            background: #f1c40f;
+            color: white;
+        }
+        .status.approved {
+            background: #2ecc71;
+            color: white;
+        }
+        .status.rejected {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #21618c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Applications</h2>
+    <ul>
+        <li th:each="app : ${applications}">
+            <!-- Job Title on Left -->
+            <div>
+                <b th:text="${app.job.title}"></b>
+            </div>
+
+            <!-- Status Badge on Right -->
+            <span th:class="'status ' + ${app.status.toLowerCase()}"
+                  th:text="${app.status}"></span>
+        </li>
+    </ul>
+    <a href="/applicant/available_jobs" class="btn">Available Jobs</a>
+</div>
+</body>
+</html>
